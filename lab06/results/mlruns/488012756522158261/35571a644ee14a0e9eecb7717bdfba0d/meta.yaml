@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/namat/OneDrive/Desktop/Machine-Learning-Maria-Namatovu-70897/lab06/results/mlruns/488012756522158261/35571a644ee14a0e9eecb7717bdfba0d/artifacts
+end_time: 1794749933715
+entry_point_name: ''
+experiment_id: '488012756522158261'
+lifecycle_stage: active
+run_id: 35571a644ee14a0e9eecb7717bdfba0d
+run_name: reference-cnn
+run_uuid: 35571a644ee14a0e9eecb7717bdfba0d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794749892928
+status: 3
+tags: []
+user_id: namat

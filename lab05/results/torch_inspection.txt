@@ -1,0 +1,28 @@
+PyTorch autograd/compile/contiguity inspection
+loss=0.260506779
+autograd graph (loss.grad_fn and three levels of next_functions):
+MeanBackward0
+  PowBackward0
+    AddmmBackward0
+      AccumulateGrad
+      ReluBackward0
+      TBackward0
+eager forward median (30 timed runs, seconds)=0.000248900033
+torch.compile failed (BackendCompilerFailed: backend='inductor' raised:
+InvalidCxxCompiler: No working C++ compiler found in torch._inductor.config.cpp.cxx: (None, 'g++')
+
+Set TORCH_LOGS="+dynamo" and TORCHDYNAMO_VERBOSE=1 for more information
+
+
+You can suppress this exception and fal)
+traced forward median (30 timed runs, seconds)=0.000102600083
+compile path used: torch.jit.trace fallback
+eager/selected speed ratio=2.426x
+steady-state note: selected path is faster than eager
+compile_path=torch.jit.trace fallback
+base tensor: shape=(512, 512), dtype=torch.float32, is_contiguous=True
+non-contiguous transpose: shape=(512, 512), dtype=torch.float32, is_contiguous=False
+contiguous matmul median (seconds)=0.018192199990
+non-contiguous matmul median (seconds)=0.015943149920
+non-contiguous minus contiguous (seconds)=-0.002249050071
+non-contiguous/contiguous ratio=0.876x

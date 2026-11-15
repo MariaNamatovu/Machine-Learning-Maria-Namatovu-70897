@@ -1,0 +1,31 @@
+﻿schema_version: lab06-1
+seed: 42
+data_root: data
+subset:
+  train_samples: 8000
+  validation_samples: 2000
+  test_samples: 2000
+training:
+  batch_size: 128
+  learning_rate: 0.001
+  epochs: 5
+  accumulation_epochs: 5
+  resume_total_epochs: 6
+  num_workers: 0
+study:
+  num_workers_values: [0, 1, 2, 4, 8]
+  worker_max_batches: 64
+  batch_sizes: [32, 64, 128, 256, 512]
+  schedule_epochs: 10
+  schedule_step_size: 3
+  schedule_gamma: 0.5
+  cosine_t_max: 10
+  plateau_patience: 2
+  plateau_factor: 0.5
+  accumulation_batch_size: 64
+  accumulation_steps: 4
+checkpoint_dir: lab06/results/checkpoints
+mlflow:
+  experiment_name: lab06-cnn-training
+  tracking_uri: lab06/results/mlruns
+  run_name: reference-cnn

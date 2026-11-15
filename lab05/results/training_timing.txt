@@ -1,0 +1,13 @@
+make_moons 2->8->1 training timing
+data: n_samples=200, noise=0.2, random_state=42
+epochs=30, learning_rate=0.1, runs=5, optimizer=plain SGD
+loss=BCE on sigmoid probabilities; each sample is one SGD update
+engine run times (s)=[9.125179, 7.488194, 6.553911, 6.098211, 6.480133]
+PyTorch run times (s)=[16.983179, 6.222791, 4.921393, 4.031634, 3.755071]
+engine median (s)=6.553910600
+PyTorch median (s)=4.921393000
+engine/PyTorch median ratio=1.332x
+engine final losses=[0.078028, 0.073245, 0.093843, 0.127879, 0.268454]
+PyTorch final losses=[0.077229, 0.082682, 0.103745, 0.194243, 0.089474]
+engine median final loss=0.093842991
+PyTorch median final loss=0.089474134

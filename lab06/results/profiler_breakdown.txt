@@ -1,0 +1,45 @@
+Lab 06 one-epoch CPU profiler
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           data_loading         0.06%       6.066ms        64.30%        6.470s     101.099ms            64  
+enumerate(DataLoader)#_SingleProcessDataLoaderIter._...        40.99%        4.124s        64.24%        6.464s     101.004ms            64  
+                                               backward         0.96%      96.719ms        20.20%        2.032s      32.261ms            63  
+                                                forward         0.69%      69.036ms        13.08%        1.316s      20.893ms            63  
+autograd::engine::evaluate_function: ConvolutionBack...         0.05%       5.305ms        12.44%        1.252s       9.935ms           126  
+                                   ConvolutionBackward0         0.04%       4.174ms        12.39%        1.246s       9.893ms           126  
+                             aten::convolution_backward        12.28%        1.235s        12.35%        1.242s       9.860ms           126  
+                                               aten::to         1.35%     135.482ms         6.65%     669.025ms      11.606us         57644  
+                                         aten::_to_copy         3.03%     305.244ms         5.59%     562.000ms      22.029us         25512  
+                                           aten::conv2d         0.02%       1.997ms         5.46%     548.917ms       4.356ms           126  
+                                      aten::convolution         0.07%       7.129ms         5.44%     546.920ms       4.341ms           126  
+                                     aten::_convolution         0.03%       3.198ms         5.36%     539.791ms       4.284ms           126  
+                               aten::mkldnn_convolution         5.28%     531.388ms         5.33%     536.593ms       4.259ms           126  
+                                       aten::max_pool2d         0.02%       1.962ms         4.64%     466.407ms       3.702ms           126  
+                          aten::max_pool2d_with_indices         4.62%     464.445ms         4.62%     464.445ms       3.686ms           126  
+                                              aten::div         1.97%     198.284ms         3.73%     375.430ms      44.811us          8378  
+     autograd::engine::evaluate_function: ReluBackward0         0.09%       8.629ms         3.30%     331.991ms       2.635ms           126  
+                                          ReluBackward0         0.05%       4.642ms         3.21%     323.362ms       2.566ms           126  
+                                               aten::eq         1.47%     147.640ms         3.20%     322.312ms      40.289us          8000  
+                               aten::threshold_backward         3.17%     318.720ms         3.17%     318.720ms       2.530ms           126  
+                                            aten::copy_         2.66%     267.497ms         2.66%     267.497ms       6.434us         41575  
+                                         optimizer_step         0.07%       7.062ms         2.41%     242.956ms       3.856ms            63  
+                                              aten::any         1.31%     132.259ms         2.37%     238.801ms      29.850us          8000  
+                               Optimizer.step#Adam.step         0.81%      81.729ms         2.34%     235.894ms       3.744ms            63  
+                                           aten::select         1.85%     186.346ms         2.19%     219.962ms      13.748us         16000  
+autograd::engine::evaluate_function: MaxPool2DWithIn...         0.06%       6.158ms         1.80%     181.041ms       1.437ms           126  
+                                            aten::clone         1.03%     103.226ms         1.75%     175.629ms      21.954us          8000  
+                          MaxPool2DWithIndicesBackward0         0.03%       2.516ms         1.74%     174.883ms       1.388ms           126  
+                 aten::max_pool2d_with_indices_backward         0.79%      79.807ms         1.71%     172.367ms       1.368ms           126  
+                                             aten::view         1.60%     160.773ms         1.60%     160.773ms       4.985us         32252  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 10.062s
+
+
+Labeled region breakdown (sum of record_function CPU time):
+data_loading: 6470.348 ms (64.30%)
+forward: 1316.284 ms (13.08%)
+backward: 2032.416 ms (20.20%)
+optimizer_step: 242.956 ms (2.41%)
+labeled total: 10062.004 ms

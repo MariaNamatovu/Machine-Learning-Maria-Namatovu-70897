@@ -1,0 +1,19 @@
+Scalar Value gradient verification
+triples=[(-4.0, 2.0, 1.0), (1.5, -2.0, 4.0), (0.5, 1.2, -0.1)]
+engine loss=50.250000000000
+columns: da, db, dc
+engine gradients=
+[[-28.   56.  -14. ]
+ [ -4.    3.    2. ]
+ [  1.2   0.5   1. ]]
+PyTorch gradients=
+[[-28.   56.  -14. ]
+ [ -4.    3.    2. ]
+ [  1.2   0.5   1. ]]
+central finite-difference gradients (h=1e-06)=
+[[-28.   56.  -14. ]
+ [ -4.    3.    2. ]
+ [  1.2   0.5   1. ]]
+max abs diff (engine vs PyTorch)=0.000000000000e+00
+max abs diff (engine vs numerical)=3.913783075404e-09
+pass (<1e-6)=True
