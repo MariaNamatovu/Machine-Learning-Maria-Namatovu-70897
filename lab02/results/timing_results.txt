@@ -1,0 +1,5 @@
+Timing uses a batch of 32 and the median of 100 runs.
+forward_median_seconds=0.000033500022
+backward_median_seconds=0.000033349963
+forward_median_milliseconds=0.033500
+backward_median_milliseconds=0.033350

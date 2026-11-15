@@ -1,0 +1,72 @@
+﻿Lab 2 on-paper calculations
+============================
+
+Network dimensions
+-------------------
+For each example X has 64 input features. Both hidden layers have width W, and the output has 10 classes.
+
+| Tensor | W=16 shape | W=64 shape |
+|--------|------------|------------|
+| X      | (batch, 64) | (batch, 64) |
+| W1     | (64, 16) | (64, 64) |
+| b1     | (16,) | (64,) |
+| Z1,A1  | (batch, 16) | (batch, 64) |
+| W2     | (16, 16) | (64, 64) |
+| b2     | (16,) | (64,) |
+| Z2,A2  | (batch, 16) | (batch, 64) |
+| W3     | (16, 10) | (64, 10) |
+| b3     | (10,) | (10,) |
+| Z3,P   | (batch, 10) | (batch, 10) |
+
+Parameter counts
+----------------
+W=16:
+  W1: 64*16 = 1,024; b1: 16; W2: 16*16 = 256; b2: 16; W3: 16*10 = 160; b3: 10.
+  Total = 1,482 parameters.
+
+W=64:
+  W1: 64*64 = 4,096; b1: 64; W2: 64*64 = 4,096; b2: 64; W3: 64*10 = 640; b3: 10.
+  Total = 8,970 parameters.
+
+Weights are initialized independently from N(0, 0.01) (standard deviation 0.01); biases are initialized to zero.
+
+Forward equations
+-----------------
+Z1 = X W1 + b1
+A1 = ReLU(Z1) = max(0, Z1)
+Z2 = A1 W2 + b2
+A2 = ReLU(Z2) = max(0, Z2)
+Z3 = A2 W3 + b3
+P = softmax(Z3), where P_ij = exp(Z3_ij - max_k Z3_ik) / sum_k exp(Z3_ik - max_l Z3_il).
+
+Backpropagation derivation
+--------------------------
+Let m be the batch size and let L = -(1/m) sum_i sum_k Y_ik log(P_ik). The softmax and cross-entropy derivatives combine to:
+
+dL/dZ3 = (P - Y) / m.
+
+For the output affine layer:
+  dL/dW3 = A2^T (dL/dZ3)
+  dL/db3 = sum over rows of (dL/dZ3)
+  dL/dA2 = (dL/dZ3) W3^T
+
+For the second ReLU and affine layer, with ReLU'(Z) = 1 when Z > 0 and 0 otherwise:
+  dL/dZ2 = (dL/dA2) elementwise-multiplied by ReLU'(Z2)
+  dL/dW2 = A1^T (dL/dZ2)
+  dL/db2 = sum over rows of (dL/dZ2)
+  dL/dA1 = (dL/dZ2) W2^T
+
+For the first ReLU and affine layer:
+  dL/dZ1 = (dL/dA1) elementwise-multiplied by ReLU'(Z1)
+  dL/dW1 = X^T (dL/dZ1)
+  dL/db1 = sum over rows of (dL/dZ1)
+
+Because dL/dZ3 contains 1/m, all weight and bias gradients above are batch averages. The code uses the same ReLU derivative convention at zero (zero derivative).
+
+Numerical gradient check
+------------------------
+For each selected weight theta, the numerical slope is
+  dL/dtheta approximately [L(theta + epsilon) - L(theta - epsilon)] / (2 epsilon),
+with epsilon = 1e-5. Relative error is
+  |analytic - numerical| / max(|analytic| + |numerical|, 1e-12).
+The computed pass count and individual values are saved in results/gradient_check.txt.

@@ -1,0 +1,15 @@
+Numerical gradient check (centered difference, epsilon=1e-5)
+
+W1(27, 11): analytical=2.383515100709e-05, numerical=2.383515607107e-05, relative_error=1.062293313354e-07
+W1(3, 10): analytical=-2.325532463401e-05, numerical=-2.325533099423e-05, relative_error=1.367476076214e-07
+W1(13, 8): analytical=1.242475749811e-04, numerical=1.242475677898e-04, relative_error=2.893936393234e-08
+W1(2, 8): analytical=1.803493966917e-05, numerical=1.803492910568e-05, relative_error=2.928619726978e-07
+W2(9, 11): analytical=-1.280761090135e-04, numerical=-1.280761274813e-04, relative_error=7.209695100945e-08
+W2(7, 1): analytical=0.000000000000e+00, numerical=0.000000000000e+00, relative_error=0.000000000000e+00
+W2(2, 13): analytical=-2.652692452760e-05, numerical=-2.652693620320e-05, relative_error=2.200705966694e-07
+W3(13, 1): analytical=-4.231038468225e-04, numerical=-4.231038630564e-04, relative_error=1.918431838584e-08
+W3(7, 3): analytical=5.756645629495e-05, numerical=5.756646270783e-05, relative_error=5.569972283973e-08
+W3(3, 7): analytical=-1.732969275570e-04, numerical=-1.732969323598e-04, relative_error=1.385724240097e-08
+
+Passed: 10/10
+Pass rate: 100%
