@@ -1,0 +1,65 @@
+﻿# Lab 3 hand calculations (per-sample FLOPs, batch size 1)
+
+The required formulas count multiply/add work as two FLOPs. Activations, biases,
+pooling, normalization, and other operations listed at the end are intentionally
+not included.
+
+## MLP
+
+Architecture: Flatten(784) -> Linear(784,256) -> ReLU -> Linear(256,128)
+-> ReLU -> Linear(128,10).
+
+- Linear(784,256): 2 * 784 * 256 = 401,408 FLOPs.
+- Linear(256,128): 2 * 256 * 128 = 65,536 FLOPs.
+- Linear(128,10): 2 * 128 * 10 = 2,560 FLOPs.
+- Total: 401,408 + 65,536 + 2,560 = 469,504 FLOPs per sample.
+
+## CNN
+
+The first convolution produces 16 channels at 28 x 28. After 2x2 pooling,
+the second convolution produces 32 channels at 14 x 14. The second pool
+leaves 32 x 7 x 7 = 1,568 values for the final linear layer.
+
+- Conv2d(1,16,3): 2 * 3 * 3 * 1 * 16 * 28 * 28 = 225,792 FLOPs.
+- Conv2d(16,32,3): 2 * 3 * 3 * 16 * 32 * 14 * 14 = 1,806,336 FLOPs.
+- Linear(1,568,10): 2 * 1,568 * 10 = 31,360 FLOPs.
+- Total: 225,792 + 1,806,336 + 31,360 = 2,063,488 FLOPs per sample.
+
+## Attention model
+
+The 28 x 28 image is split into 16 non-overlapping 7 x 7 patches. Each patch
+has 49 values and is projected to d_model=64. Each of the two encoder layers
+uses sequence length 16, d_model=64, and feedforward dimension 128.
+
+Patch projection (once):
+- 2 * seq_len * 49 * 64 = 2 * 16 * 49 * 64 = 100,352 FLOPs.
+
+One encoder layer:
+- QKV projection: 2 * seq_len * d_model * (3 * d_model)
+  = 2 * 16 * 64 * (3 * 64) = 393,216 FLOPs.
+- QK^T score computation: 2 * seq_len^2 * d_model
+  = 2 * 16^2 * 64 = 32,768 FLOPs.
+- Attention-weighted V aggregation: 2 * seq_len^2 * d_model
+  = 2 * 16^2 * 64 = 32,768 FLOPs.
+- Thus score plus value aggregation: 2 * (2 * 16^2 * 64) = 65,536 FLOPs.
+- Attention output projection: 2 * seq_len * d_model * d_model
+  = 2 * 16 * 64 * 64 = 131,072 FLOPs.
+- Feedforward: 2 * (2 * seq_len * d_model * dim_feedforward)
+  = 2 * (2 * 16 * 64 * 128) = 524,288 FLOPs.
+- One encoder-layer total: 393,216 + 65,536 + 131,072 + 524,288
+  = 1,114,112 FLOPs.
+- Two encoder layers: 2 * 1,114,112 = 2,228,224 FLOPs.
+
+After the encoder, mean-pooling reduces the 16-patch sequence to one 64-value
+vector, so the final head is not multiplied by sequence length:
+- Linear(64,10): 2 * 64 * 10 = 1,280 FLOPs.
+
+Attention total: 100,352 + 2,228,224 + 1,280 = 2,329,856 FLOPs per sample.
+
+## Operations omitted by this formula set
+
+ReLU operations, bias additions, max-pooling comparisons, patch reshaping and
+flattening, softmax inside attention, layer normalization, residual additions,
+mean-pooling additions/division, and other indexing/bookkeeping are not counted.
+All values above are per-sample FLOPs (equivalently, batch size 1), not whole-
+dataset or batch totals.

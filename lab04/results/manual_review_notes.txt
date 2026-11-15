@@ -1,0 +1,22 @@
+Manual quality review
+====================
+Sample size: 50 rows, selected with pandas sample(random_state=42).
+Review basis: Adult schema ranges and observed data-dictionary category values.
+Total findings: 0
+- age: 0 impossible/missing values
+- fnlwgt: 0 impossible/missing values
+- education-num: 0 impossible/missing values
+- capital-gain: 0 impossible/missing values
+- capital-loss: 0 impossible/missing values
+- hours-per-week: 0 impossible/missing values
+- workclass: 0 invalid category values
+- education: 0 invalid category values
+- marital-status: 0 invalid category values
+- occupation: 0 invalid category values
+- relationship: 0 invalid category values
+- race: 0 invalid category values
+- sex: 0 invalid category values
+- native-country: 0 invalid category values
+
+Finding: the 50 reviewed cleaned rows contain no impossible numeric values, missing values, or invalid categorical values.
+Categorical NaN markers were removed by the train-fitted most-frequent imputer before this review.

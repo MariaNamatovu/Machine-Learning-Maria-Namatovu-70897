@@ -1,0 +1,51 @@
+Lab 4 schema validation report
+===============================
+Required columns present: True
+Missing required columns: none
+Dtype violations: none
+
+Dtype checks:
+- age: observed=int64, expected=numeric, match=True
+- fnlwgt: observed=int64, expected=numeric, match=True
+- education-num: observed=int64, expected=numeric, match=True
+- capital-gain: observed=int64, expected=numeric, match=True
+- capital-loss: observed=int64, expected=numeric, match=True
+- hours-per-week: observed=int64, expected=numeric, match=True
+- workclass: observed=category, expected=categorical, match=True
+- education: observed=category, expected=categorical, match=True
+- marital-status: observed=category, expected=categorical, match=True
+- occupation: observed=category, expected=categorical, match=True
+- relationship: observed=category, expected=categorical, match=True
+- race: observed=category, expected=categorical, match=True
+- sex: observed=category, expected=categorical, match=True
+- native-country: observed=category, expected=categorical, match=True
+- income: observed=category, expected=categorical, match=True
+
+Numeric range checks (nulls are not counted as range violations):
+- age: 0 out-of-range values (allowed=17..90)
+- fnlwgt: 0 out-of-range values (allowed=None..None)
+- education-num: 0 out-of-range values (allowed=None..None)
+- capital-gain: 0 out-of-range values (allowed=0..99999)
+- capital-loss: 0 out-of-range values (allowed=0..4356)
+- hours-per-week: 0 out-of-range values (allowed=1..99)
+Total numeric range violations: 0
+
+Categorical missing-value representation:
+- workclass: literal '?'=0, NaN=2799 (allowed missing marker)
+- education: literal '?'=0, NaN=0 (unexpected if present)
+- marital-status: literal '?'=0, NaN=0 (unexpected if present)
+- occupation: literal '?'=0, NaN=2809 (allowed missing marker)
+- relationship: literal '?'=0, NaN=0 (unexpected if present)
+- race: literal '?'=0, NaN=0 (unexpected if present)
+- sex: literal '?'=0, NaN=0 (unexpected if present)
+- native-country: literal '?'=0, NaN=857 (allowed missing marker)
+The fetched frame uses NaN (not literal '?') where missing categorical values occur.
+NaN is treated as the equivalent allowed missing marker for workclass, occupation, and native-country.
+
+Unexpected null checks:
+- Numeric nulls: {'age': 0, 'fnlwgt': 0, 'education-num': 0, 'capital-gain': 0, 'capital-loss': 0, 'hours-per-week': 0}
+- Target nulls: 0
+- Unexpected null total (numeric + target): 0
+
+Observed target labels: '<=50K': 37155, '>50K': 11687
+No rows were dropped or modified during schema validation.

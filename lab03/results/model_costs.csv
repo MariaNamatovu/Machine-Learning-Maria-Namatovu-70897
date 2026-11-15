@@ -1,0 +1,4 @@
+model,total_parameters,hand_flops,thop_flops,thop_parameters
+MLP,235146,469504,234752,235146
+CNN,20490,2063488,1031744,20490
+Attention,70794,2329856,50816,3850

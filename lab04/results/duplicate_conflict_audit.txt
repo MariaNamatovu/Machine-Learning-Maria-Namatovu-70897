@@ -1,0 +1,4 @@
+Duplicate-conflict audit
+========================
+Grouping keys: all 14 feature columns; target income excluded from the key.
+Conflicting feature groups (more than one income label): 5

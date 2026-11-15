@@ -1,0 +1,36 @@
+schema_version: adult-v2-lab04-schema-1
+dataset:
+  name: adult
+  version: 2
+  source: UCI Adult via OpenML
+random_seed: 42
+split:
+  train_fraction: 0.7
+  test_fraction: 0.3
+  stratify: income
+  random_state: 42
+numeric_clip_percentiles:
+- 1
+- 99
+imputation:
+  categorical: most_frequent
+  numeric: median
+  fit_scope: train_only
+duplicate_handling:
+  exact_duplicates: drop_train_only_after_clipping
+  test_untouched: true
+features:
+  engineered:
+  - capital_net
+  - hours_per_age
+  capital_net: capital-gain - capital-loss
+  hours_per_age: hours-per-week / (age - 16)
+model:
+  type: LogisticRegression
+  max_iter: 5000
+  random_state: 42
+  categorical_encoding: OneHotEncoder(handle_unknown=ignore)
+  numeric_scaling: StandardScaler
+artifacts:
+  processed_dataset: results/processed_dataset.csv
+  preprocessor: results/preprocessor.joblib

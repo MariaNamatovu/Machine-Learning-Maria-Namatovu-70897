@@ -1,0 +1,22 @@
+Lab 4 ingestion report
+=======================
+Source: fetch_openml(name='adult', version=2, as_frame=True)
+Rows: 48842
+Columns: 15 (14 features + 1 target)
+
+Columns and dtypes:
+- age: int64
+- workclass: category
+- fnlwgt: int64
+- education: category
+- education-num: int64
+- marital-status: category
+- occupation: category
+- relationship: category
+- race: category
+- sex: category
+- capital-gain: int64
+- capital-loss: int64
+- hours-per-week: int64
+- native-country: category
+- income: category
