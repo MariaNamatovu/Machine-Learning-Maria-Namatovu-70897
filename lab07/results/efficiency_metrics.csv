@@ -1,0 +1,4 @@
+model,sparsity_or_fraction,latency_ms,dense_size_kb,sparse_size_kb_or_theoretical
+baseline,0.00,2.843550,4084.501953,24146.974609
+global_0.90,0.90,2.858000,4084.548828,3295.726562
+structured_0.50,0.50,2.632050,4084.673828,19930.125000

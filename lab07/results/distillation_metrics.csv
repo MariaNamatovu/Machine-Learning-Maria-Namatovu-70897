@@ -1,0 +1,4 @@
+model,accuracy,size_kb,latency_ms
+teacher_baseline,0.85400000,4084.501953,3.222600
+student_plain,0.83700000,416.945312,0.319050
+student_distilled,0.81700000,416.992188,0.320100

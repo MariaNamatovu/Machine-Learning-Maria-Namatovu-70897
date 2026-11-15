@@ -1,0 +1,17 @@
+method,sparsity_or_fraction,accuracy,param_count_nonzero,notes
+global,0.00,0.85400000,1044000,unpruned baseline
+global,0.25,0.86900000,783000,3 epochs with fixed mask
+global,0.50,0.87000000,522000,3 epochs with fixed mask
+global,0.75,0.87300000,261000,3 epochs with fixed mask
+global,0.90,0.87300000,104400,3 epochs with fixed mask
+global,0.95,0.85900000,52200,3 epochs with fixed mask
+per_layer,0.00,0.85400000,1044000,unpruned baseline
+per_layer,0.25,0.88400000,783000,3 epochs with fixed mask
+per_layer,0.50,0.87400000,522000,3 epochs with fixed mask
+per_layer,0.75,0.87200000,261000,3 epochs with fixed mask
+per_layer,0.90,0.82900000,104401,3 epochs with fixed mask
+per_layer,0.95,0.74400000,52200,3 epochs with fixed mask
+structured,0.00,0.85400000,1044000,unpruned baseline
+structured,0.10,0.86200000,1019781,3 epochs with fixed Conv2d filter mask
+structured,0.25,0.87800000,984024,3 epochs with fixed Conv2d filter mask
+structured,0.50,0.85800000,924048,3 epochs with fixed Conv2d filter mask
